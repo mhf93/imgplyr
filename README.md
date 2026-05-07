@@ -16,7 +16,7 @@ IMGPLYR is an image slideshow player built for live use. Load a folder of images
  
 ## Supported Image Formats
  
-PNG · JPG / JPEG · GIF · BMP · PPM · PGM · WEBP
+PNG · JPG / JPEG · GIF (including animated) · BMP · PPM · PGM · WEBP
  
 ---
  
@@ -38,9 +38,11 @@ The images will begin cycling automatically. Every image in the folder is shown 
  
 All controls live in the bar at the top of the window. From left to right:
  
-**Load ▾** · **Start/Pause** · **Background ▾** · **Speed ▾** · **Scale ▾** · **Motion ▾** · **Styles ▾** · **Effects ▾** · **Settings ▾**
+**Load ▾** · **Start/Pause** · **BG ▾** · **Speed ▾** · **Scale ▾** · **Motion ▾** · **Styles ▾** · **Effects ▾** · **Trans. ▾** · **Settings ▾**
  
 The **status bar** on the right shows live information — which image you are on, which bank or folder is active, speed confirmations, and other feedback.
+ 
+> **Note:** Button labels are abbreviated to keep the control bar compact on smaller screens. "BG ▾" is the Background menu and "Trans. ▾" is the Transitions menu.
  
 ---
  
@@ -60,7 +62,7 @@ Loads images directly from a public [Are.na](https://www.are.na) channel via the
 3. Click **OK**
 IMGPLYR fetches all image blocks in the channel and loads them into the main image pool, exactly as if you had loaded a local folder. The status bar shows live progress while fetching. Only **Image** type blocks are loaded — text, links, and embeds are skipped.
  
-> **Note:** Are.na's API rate-limits requests. IMGPLYR spaces out page fetches automatically and retries if a rate-limit response is received. Very large channels may take a moment to load fully, the app may be unresponsive while this occurs.
+> **Note:** Are.na's API rate-limits requests. IMGPLYR spaces out page fetches automatically and retries if a rate-limit response is received. Very large channels may take a moment to load fully and the app may be briefly unresponsive during this time.
  
 ### Load Bank 1–8
 Eight extra image folders, each assigned to a function key (F1–F8). You can pre-load all eight before you begin, then switch between them live during playback by pressing the matching key. Switching banks does not interrupt the current image — the change takes effect on the next advance.
@@ -120,9 +122,9 @@ If the Pop-Out Controls window is open, bank buttons (labelled F1, F2, etc.) app
  
 ## Background
  
-The **Background ▾** dropdown controls what appears behind your images. It is divided into three sections.
+The **BG ▾** dropdown controls what appears behind your images. It is divided into three sections.
  
-> **Compatibility note:** Gradient and image backgrounds are not available when Kuleshov Mode, Two Images Classic, Collage Mode, Screensaver Mode, or XP Trails Mode is active. They are also not available while any Effect is enabled. Similarly, Effects are disabled while a gradient or image background is active.
+> **Compatibility note:** Gradient and image backgrounds are not available when Kuleshov Mode, Two Images Classic, Collage Mode, Screensaver Mode, or XP Trails Mode is active. They are also not available while any Effect or Transition is enabled. Similarly, Effects and Transitions are disabled while a gradient or image background is active.
  
 ### Solid Color
 Six preset options plus **Custom…** which opens a colour picker.
@@ -210,17 +212,17 @@ The image is stretched to fill the exact dimensions of the window. Proportions a
 ### Kuleshov Mode
 The screen is split into two side-by-side panels. Each advance updates **one panel at a time**, alternating left and right. The gap between panels is adjustable via the Scale panel.
  
-> Not available when a gradient or image background is active.
+> Not available when a gradient or image background, any Effect, or any Transition is active.
  
 ### Two Images Classic
 The same two-panel layout as Kuleshov Mode, but **both panels update at the same time** on every advance.
  
-> Not available when a gradient or image background is active.
+> Not available when a gradient or image background, any Effect, or any Transition is active.
  
 ### Collage Mode
 Images accumulate on screen at random positions, layered on top of each other. The first image each session is placed centred. Up to 50 tiles can be visible at once — once the limit is reached, the oldest tile is removed as each new one arrives.
  
-> Not available when a gradient or image background is active.
+> Not available when a gradient or image background, any Effect, or any Transition is active.
  
 ### Screensaver Mode
 The current image drifts around the window and bounces off the edges, DVD-style. Each advance loads the next image in the queue and continues from the same position and direction the previous image was moving.
@@ -229,7 +231,7 @@ The current image drifts around the window and bounces off the edges, DVD-style.
  
 Use the **Motion ▾** panel to adjust speed and enable wall-hit advances.
  
-> Not available when a gradient or image background is active.
+> Not available when a gradient or image background, any Effect, or any Transition is active.
  
 ### XP Trails Mode
 Similar to Screensaver Mode, but the image leaves ghost stamps on the canvas as it moves. Stamps accumulate over time and are never erased — the canvas builds up layer after layer as the image bounces around. Each advance loads the next image and continues from the same position; the trail history remains on screen. Can be CPU heavy so may be choppy on lower end computers or with higher resolution images.
@@ -238,7 +240,7 @@ Similar to Screensaver Mode, but the image leaves ghost stamps on the canvas as 
  
 Use the **Motion ▾** panel to adjust speed and enable wall-hit advances.
  
-> Not available when a gradient or image background is active.
+> Not available when a gradient or image background, any Effect, or any Transition is active.
  
 ---
  
@@ -270,6 +272,44 @@ Applies a pixel-art style ordered dither to the image. Click **Dither Settings�
  
 ---
  
+## Transitions
+ 
+The **Trans. ▾** dropdown applies fade effects to images as they appear and disappear. Transitions only work in **Centered**, **Crop**, and **Stretch** modes and are not available when a gradient or image background is active.
+ 
+> **Compatibility note:** Enabling any Transition disables Kuleshov, Two Images Classic, Collage, Screensaver, and XP Trails modes in the Styles menu. Those modes likewise disable Transitions when active.
+ 
+### Fade In
+When enabled, each new image fades from fully transparent to fully opaque. The image starts invisible and gradually appears over the configured duration.
+ 
+**Fade In Settings…** — opens a settings panel with a slider (50–2000 ms) and quick preset buttons (100 / 250 / 400 / 600 / 1000 ms). Default is 400 ms.
+ 
+### Fade Out
+When enabled, the current image fades from fully opaque to fully transparent before the next image loads. Fade Out and Fade In can be active at the same time, producing a full cross-fade effect: the outgoing image fades out, then the incoming image fades in.
+ 
+### Fade to Black (hold on advance)
+A variation of Fade Out. When enabled, pressing advance fades the current image to 0% opacity and **holds** there — the display stays black and the queue does not advance yet. Pressing advance a **second time** releases the hold and loads the next image (with Fade In playing if that is also enabled).
+ 
+This is useful for deliberate pauses between images during a live performance.
+ 
+**Fade Out Settings…** — controls the duration for both Fade Out and Fade to Black. Opens the same settings panel with a 50–2000 ms slider and quick presets. Default is 400 ms.
+ 
+---
+ 
+## Animated GIFs
+ 
+By default, GIF files are displayed as static images (first frame only). Enable **Settings ▾ → Animated GIFs** to play GIFs frame-by-frame at their native speed.
+ 
+When Animated GIFs is enabled:
+ 
+- GIF files play through all frames and loop continuously while on screen.
+- Frame timing comes from the GIF's own metadata (minimum 20 ms per frame).
+- The next several GIFs in the queue are decoded and pre-scaled in the background so that advancing feels instant.
+- **Kuleshov, Two Images Classic, Collage, Screensaver, and XP Trails** modes are disabled — these modes use canvas rendering that is not compatible with per-frame animation.
+- GIFs displayed in incompatible modes still show their first frame as normal.
+Turn **Animated GIFs** off at any time to return to static first-frame display. The current image is immediately frozen at its current frame.
+ 
+---
+ 
 ## Screenshot
  
 Press **P** to save a rendered image of the current display to your **Pictures/IMGPLYR Screenshots** folder. The screenshot does not include the control bar. **XP Trails Mode** currently does not work with this feature.
@@ -289,6 +329,9 @@ Hides the control bar so the image fills the entire window. Press **C** again to
 ### Order: Random / Order: Alphabetical
 - **Random** (default) — shuffles the folder; every image is shown once before anything repeats.
 - **Alphabetical** — plays images in filename order, A to Z.
+### Animated GIFs
+Toggle animated GIF playback on or off. Off by default. See [Animated GIFs](#animated-gifs) above for full details.
+ 
 ### Screenshot Folder…
 Opens a folder browser to choose where screenshots are saved. Default is **Pictures/IMGPLYR Screenshots**.
  
@@ -299,7 +342,7 @@ Opens the control bar as a separate floating window. The main bar is hidden when
 Opens the keyboard shortcut editor. See [Customising Keyboard Shortcuts](#customising-keyboard-shortcuts).
  
 ### Export Session Settings…
-Saves all current settings to a `.imgplyr` file that you choose. The file captures everything: loaded folder and Are.na channel paths, speed, image order, display style, scale, background, motion settings, and every effect with its full sub-settings (shadow angle, glow radius, gradient map colours, etc.). The file is plain JSON and can be opened in any text editor.
+Saves all current settings to a `.imgplyr` file that you choose. The file captures everything: loaded folder and Are.na channel paths, speed, image order, display style, scale, background, motion settings, effects, transitions, animated GIF mode, and all sub-settings. The file is plain JSON and can be opened in any text editor.
  
 ### Import Session Settings…
 Loads a `.imgplyr` file and applies all settings to the current session. Local folders are re-validated for existence, Are.na channels are re-fetched live, and anything not found is listed in a summary dialog. All menus and checkbuttons update to reflect the restored state.
@@ -316,7 +359,7 @@ Opens a quick reference inside the app.
  
 **Settings ▾ → Pop Out Controls** moves the control bar into a floating window that can be positioned anywhere — including a second monitor while the main window is fullscreen.
  
-**Top row:** Load ▾ · Start/Pause · Background ▾ · Speed ▾ · Scale ▾ · Motion ▾ · Styles ▾ · Effects ▾ · Settings ▾
+**Top row:** Load ▾ · Start/Pause · BG ▾ · Speed ▾ · Scale ▾ · Motion ▾ · Styles ▾ · Effects ▾ · Trans. ▾ · Settings ▾
  
 **Bottom row:** ◄ Back · Next ► · ↩ Main · one button per loaded bank (F1, F2, etc.)
  
@@ -326,7 +369,7 @@ All keyboard shortcuts work when the pop-out window has focus. To close the pop-
  
 ## Customising Keyboard Shortcuts
  
-**Settings ▾ → Edit Keybindings…** opens a scrollable table of every action and its current shortcut, divided into two sections: standard actions and effect toggles.
+**Settings ▾ → Edit Keybindings…** opens a scrollable table of every action and its current shortcut, divided into three sections: standard actions, effect toggles, and transition toggles.
  
 1. Click the text box next to the action you want to rebind. It turns **yellow**.
 2. Press the key you want to use. The box turns **green**.
@@ -336,7 +379,10 @@ All keyboard shortcuts work when the pop-out window has focus. To close the pop-
 **Revert to Defaults** resets every shortcut in the editor (you still need to click **Save**). **Cancel** discards all changes. Your shortcuts are saved and restored automatically on every launch.
  
 ### Effect Toggle Bindings
-The bottom section of the keybindings editor lists one entry for each effect — Drop Shadow, Inner Glow, Black & White, Gradient Map, Threshold, and Dither. These are all **unset by default**. Assign any key you like; pressing it will toggle that effect on or off exactly as if you had clicked the checkbutton in the Effects menu.
+The second section of the keybindings editor lists one entry for each effect — Drop Shadow, Inner Glow, Black & White, Gradient Map, Threshold, and Dither. These are all **unset by default**. Assign any key you like; pressing it will toggle that effect on or off exactly as if you had clicked the checkbutton in the Effects menu.
+ 
+### Transition Toggle Bindings
+The third section lists entries for **Fade In** and **Fade Out**. These are also **unset by default**. Assigning a key lets you toggle each fade on or off live during a performance without opening the menu.
  
 ---
  
@@ -374,8 +420,10 @@ The bottom section of the keybindings editor lists one entry for each effect —
 | *(unset)* | Effect: Toggle Gradient Map |
 | *(unset)* | Effect: Toggle Threshold |
 | *(unset)* | Effect: Toggle Dither |
+| *(unset)* | Transition: Toggle Fade In |
+| *(unset)* | Transition: Toggle Fade Out |
  
-> Style shortcuts **F**, **G**, **H**, **J**, and **K** are automatically disabled when a gradient or image background is active, or when any effect is enabled. All shortcuts are the defaults and can be changed via **Settings ▾ → Edit Keybindings…**
+> Style shortcuts **F**, **G**, **H**, **J**, and **K** are automatically disabled when a gradient or image background is active, when any Effect is enabled, when any Transition is enabled, or when Animated GIFs mode is on. All shortcuts are the defaults and can be changed via **Settings ▾ → Edit Keybindings…**
  
 ---
  
@@ -390,6 +438,6 @@ IMGPLYR remembers two things automatically between sessions:
 If a remembered folder has been moved, renamed, or is on a disconnected drive, IMGPLYR skips it and tells you which ones it could not find.
  
 ### Exporting and Importing Sessions
-For full portability — including background, speed, style, effects, and all sub-settings — use **Settings ▾ → Export Session Settings…** to save a `.imgplyr` file. Share it, back it up, or load it on another machine using **Settings ▾ → Import Session Settings…**
+For full portability — including background, speed, style, effects, transitions, animated GIF mode, and all sub-settings — use **Settings ▾ → Export Session Settings…** to save a `.imgplyr` file. Share it, back it up, or load it on another machine using **Settings ▾ → Import Session Settings…**
  
 ---

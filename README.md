@@ -1,10 +1,9 @@
 <img src="https://raw.githubusercontent.com/mhf93/imgplyr/refs/heads/main/imgplyr%20logo%20gif.gif">
 
-
 # IMGPLYR
- Image Slideshow Performance Software
+Image Slideshow Performance Software
  
-**Version 1.6**  
+**Version 1.7**  
 © 2026 John Zobele | A zobele.co Project
  
 ---
@@ -14,14 +13,14 @@
 IMGPLYR is an image slideshow player built for live use. Load a folder of images and play them back automatically on a timer, advance them manually at your own pace, switch between different image sets on the fly, and display them in a variety of visual styles — all without stopping the show.
  
 ---
-
-
+ 
 ## Supported Image Formats
  
 PNG · JPG / JPEG · GIF · BMP · PPM · PGM · WEBP
  
 ---
- ## Getting Started
+ 
+## Getting Started
  
 When you open IMGPLYR you will see a control bar across the top and a black display area below. Nothing plays until you load a folder.
  
@@ -39,25 +38,41 @@ The images will begin cycling automatically. Every image in the folder is shown 
  
 All controls live in the bar at the top of the window. From left to right:
  
-**Load ▾** · **Start/Pause** · **Background ▾** · **Speed ▾** · **Scale ▾** · **Motion ▾** · **Styles ▾** · **Settings ▾**
+**Load ▾** · **Start/Pause** · **Background ▾** · **Speed ▾** · **Scale ▾** · **Motion ▾** · **Styles ▾** · **Effects ▾** · **Settings ▾**
  
 The **status bar** on the right shows live information — which image you are on, which bank or folder is active, speed confirmations, and other feedback.
  
 ---
  
 ## Loading Images
-  
+ 
 ### Load Main
 Your primary image folder. This is what plays by default.
  
 ### Load Trigger
 A special folder for images you want to display on demand using the number keys. Name the files `1.png`, `2.jpg`, `3.png`, and so on up to `9`. When you press the corresponding number key, that image is displayed immediately and held until you advance the queue.
  
+### Load Are.na Channel…
+Loads images directly from a public [Are.na](https://www.are.na) channel via the Are.na API. No account is required for public channels.
+ 
+1. Click **Load ▾ → Load Are.na Channel…**
+2. Paste any Are.na channel URL (e.g. `https://www.are.na/username/channel-name`)
+3. Click **OK**
+IMGPLYR fetches all image blocks in the channel and loads them into the main image pool, exactly as if you had loaded a local folder. The status bar shows live progress while fetching. Only **Image** type blocks are loaded — text, links, and embeds are skipped.
+ 
+> **Note:** Are.na's API rate-limits requests. IMGPLYR spaces out page fetches automatically and retries if a rate-limit response is received. Very large channels may take a moment to load fully, the app may be unresponsive while this occurs.
+ 
 ### Load Bank 1–8
 Eight extra image folders, each assigned to a function key (F1–F8). You can pre-load all eight before you begin, then switch between them live during playback by pressing the matching key. Switching banks does not interrupt the current image — the change takes effect on the next advance.
  
-### Restore Last Session
-Reloads every folder you had open the last time you closed the program. Folders that have been moved, renamed, or are on a disconnected drive are skipped and listed in a summary. Everything else loads exactly as you left it.
+### Include Subfolders
+A toggle at the bottom of the **Load ▾** menu. When enabled, loading any folder (Main or Banks) will also include images from all nested subfolders inside it. Off by default.
+ 
+### Restore Last Loaded
+Reloads every source you had open the last time you closed the program — local folders and Are.na channels alike. Folders that have been moved, renamed, or are on a disconnected drive are skipped and listed in a summary. Are.na channels are re-fetched live, so any new images added to the channel since your last session will appear automatically.
+ 
+### Clear All Loaded
+Removes every currently loaded source — Main folder or Are.na channel, Trigger folder, and all Banks — and stops playback. A confirmation dialog appears before anything is cleared. The Start button is disabled until new images are loaded.
  
 ---
  
@@ -76,9 +91,8 @@ You can advance to the next image at any time, even while the slideshow is runni
 | **Right Arrow** | Next image |
 | **Space** | Pause or Resume |
  
-When you manually advance while the slideshow is running, the next automatic advance still happens at the original scheduled time — your manual tap does not reset the timer. 
+When you manually advance while the slideshow is running, the next automatic advance still happens at the original scheduled time — your manual tap does not reset the timer.
  
-
 ### Return to Main Folder
 Press **Backspace** to switch back to the Main folder immediately and jump to the next image in the main queue.
  
@@ -108,7 +122,7 @@ If the Pop-Out Controls window is open, bank buttons (labelled F1, F2, etc.) app
  
 The **Background ▾** dropdown controls what appears behind your images. It is divided into three sections.
  
-> **Compatibility note:** Gradient and image backgrounds are not available when Kuleshov Mode, Two Images Classic, Collage Mode, Screensaver Mode, or XP Trails Mode is active. 
+> **Compatibility note:** Gradient and image backgrounds are not available when Kuleshov Mode, Two Images Classic, Collage Mode, Screensaver Mode, or XP Trails Mode is active. They are also not available while any Effect is enabled. Similarly, Effects are disabled while a gradient or image background is active.
  
 ### Solid Color
 Six preset options plus **Custom…** which opens a colour picker.
@@ -121,7 +135,7 @@ Select **Edit Gradient…** to open the gradient editor.
 - Choose a direction: **Left → Right** or **Top → Bottom**.
 - The live preview at the bottom updates as you make changes.
 - Click **Apply** to set the gradient. Click **Cancel** to discard.
-Select **Clear Gradient** to remove the gradient and return to the current solid colour.
+Select **Clear Gradient/Image** to remove the gradient and return to the current solid colour.
  
 ### Image Background
 Click **Load Image…** to pick any image file as your background. Choose how it fills the window:
@@ -129,7 +143,7 @@ Click **Load Image…** to pick any image file as your background. Choose how it
 - **Fit: Stretch** — stretches the image to exactly fill the window. May distort proportions.
 - **Fit: Crop** — fills the window while keeping proportions, cropping the edges.
 - **Fit: Tile** — repeats the image at its original size to cover the window.
-Click **Clear Image** to remove the background image and return to solid colour.
+Click **Clear Gradient/Image** to remove the background image and return to solid colour.
  
 ---
  
@@ -168,7 +182,6 @@ Click **Scale ▾** to open a small floating panel with a vertical slider.
 - Click **Close** to dismiss the panel. The panel can stay open while you continue using the slideshow.
 When **Kuleshov Mode** or **Two Images Classic** is active, the Scale panel also shows a **Pane Gap** slider that controls the width of the space between the two image panels.
  
-
 ---
  
 ## Motion
@@ -228,10 +241,39 @@ Use the **Motion ▾** panel to adjust speed and enable wall-hit advances.
 > Not available when a gradient or image background is active.
  
 ---
- ## Screenshot
  
-Press **P** to save a rendered image of the current display to your **Pictures/IMGPLYR Screenshots** folder. The screenshot does not include the control bar. **XP Trails Mode**, curently does not work with this feature.
-
+## Effects
+ 
+The **Effects ▾** dropdown applies visual processing to your images. Multiple effects can be active at the same time.
+ 
+> **Compatibility note:** Effects are not available when a gradient or image background is active. Gradient and image backgrounds are not available while any effect is enabled.
+ 
+### Drop Shadow
+Adds a soft drop shadow behind the image. Options:
+- **Shadow Colour…** — opens a colour picker for the shadow.
+- **Shadow Settings…** — opens a panel to adjust angle, distance, blur radius, and opacity.
+### Inner Glow
+Adds a soft glow along the inside edges of the image. Options:
+- **Glow Colour…** — opens a colour picker for the glow.
+- **Glow Settings…** — opens a panel to adjust radius, feather, and opacity.
+### Black & White
+Converts the image to greyscale.
+ 
+### Gradient Map
+Remaps the image's luminance through a custom colour gradient, replacing tones with colour. Click **Edit Gradient Map Colours…** to open the gradient map editor and set the colour stops.
+ 
+### Threshold
+Converts the image to pure black and white using a luminance cutoff. Click **Threshold Settings…** to adjust the cutoff level.
+ 
+### Dither
+Applies a pixel-art style ordered dither to the image. Click **Dither Settings…** to adjust the scale of the dither pattern.
+ 
+---
+ 
+## Screenshot
+ 
+Press **P** to save a rendered image of the current display to your **Pictures/IMGPLYR Screenshots** folder. The screenshot does not include the control bar. **XP Trails Mode** currently does not work with this feature.
+ 
 To change the save folder, go to **Settings ▾ → Screenshot Folder…**
  
 ---
@@ -256,6 +298,15 @@ Opens the control bar as a separate floating window. The main bar is hidden when
 ### Edit Keybindings…
 Opens the keyboard shortcut editor. See [Customising Keyboard Shortcuts](#customising-keyboard-shortcuts).
  
+### Export Session Settings…
+Saves all current settings to a `.imgplyr` file that you choose. The file captures everything: loaded folder and Are.na channel paths, speed, image order, display style, scale, background, motion settings, and every effect with its full sub-settings (shadow angle, glow radius, gradient map colours, etc.). The file is plain JSON and can be opened in any text editor.
+ 
+### Import Session Settings…
+Loads a `.imgplyr` file and applies all settings to the current session. Local folders are re-validated for existence, Are.na channels are re-fetched live, and anything not found is listed in a summary dialog. All menus and checkbuttons update to reflect the restored state.
+ 
+### Open Current Image in Folder
+Opens the folder containing the currently displayed image in your system file browser, with the image selected where supported.
+ 
 ### Help / Shortcuts
 Opens a quick reference inside the app.
  
@@ -265,7 +316,7 @@ Opens a quick reference inside the app.
  
 **Settings ▾ → Pop Out Controls** moves the control bar into a floating window that can be positioned anywhere — including a second monitor while the main window is fullscreen.
  
-**Top row:** Load ▾ · Start/Pause · Background ▾ · Speed ▾ · Scale ▾ · Motion ▾ · Styles ▾ · Settings ▾
+**Top row:** Load ▾ · Start/Pause · Background ▾ · Speed ▾ · Scale ▾ · Motion ▾ · Styles ▾ · Effects ▾ · Settings ▾
  
 **Bottom row:** ◄ Back · Next ► · ↩ Main · one button per loaded bank (F1, F2, etc.)
  
@@ -275,12 +326,17 @@ All keyboard shortcuts work when the pop-out window has focus. To close the pop-
  
 ## Customising Keyboard Shortcuts
  
-**Settings ▾ → Edit Keybindings…** opens a table of every action and its current shortcut.
+**Settings ▾ → Edit Keybindings…** opens a scrollable table of every action and its current shortcut, divided into two sections: standard actions and effect toggles.
  
-1. Click the text box next to the action you want to rebind. It turns yellow.
-2. Press the key you want to use. The box turns green.
+1. Click the text box next to the action you want to rebind. It turns **yellow**.
+2. Press the key you want to use. The box turns **green**.
 3. Click **Save** to apply all changes.
+**Right-click** any field to clear its binding (sets it to unset). Unset fields are shown in grey with `— unset —`.
+ 
 **Revert to Defaults** resets every shortcut in the editor (you still need to click **Save**). **Cancel** discards all changes. Your shortcuts are saved and restored automatically on every launch.
+ 
+### Effect Toggle Bindings
+The bottom section of the keybindings editor lists one entry for each effect — Drop Shadow, Inner Glow, Black & White, Gradient Map, Threshold, and Dither. These are all **unset by default**. Assign any key you like; pressing it will toggle that effect on or off exactly as if you had clicked the checkbutton in the Effects menu.
  
 ---
  
@@ -312,21 +368,28 @@ All keyboard shortcuts work when the pop-out window has focus. To close the pop-
 | **P** | Screenshot |
 | **Up Arrow** | Tempo: 2× speed |
 | **Down Arrow** | Tempo: 0.5× speed |
+| *(unset)* | Effect: Toggle Drop Shadow |
+| *(unset)* | Effect: Toggle Inner Glow |
+| *(unset)* | Effect: Toggle Black & White |
+| *(unset)* | Effect: Toggle Gradient Map |
+| *(unset)* | Effect: Toggle Threshold |
+| *(unset)* | Effect: Toggle Dither |
  
-> Style shortcuts **F**, **G**, **H**, **J**, and **K** are automatically disabled when a gradient or image background is active. All shortcuts are the defaults and can be changed via **Settings ▾ → Edit Keybindings…**
+> Style shortcuts **F**, **G**, **H**, **J**, and **K** are automatically disabled when a gradient or image background is active, or when any effect is enabled. All shortcuts are the defaults and can be changed via **Settings ▾ → Edit Keybindings…**
  
 ---
  
 ## Your Settings Are Saved
  
-IMGPLYR remembers two things between sessions:
+IMGPLYR remembers two things automatically between sessions:
  
-**Last session folders** — every folder you had loaded (Main, Trigger, and Banks) is remembered. Use **Load ▾ → Restore Last Session** to reload them all at once.
+**Last loaded sources** — every folder and Are.na channel you had loaded (Main, Trigger, and Banks) is remembered. Use **Load ▾ → Restore Last Loaded** to reload them all at once. Are.na channels are always re-fetched fresh, so you get any new images added since your last session.
  
 **Custom keyboard shortcuts** — any shortcuts you change in the editor are saved and restored automatically every time you open the program.
  
 If a remembered folder has been moved, renamed, or is on a disconnected drive, IMGPLYR skips it and tells you which ones it could not find.
  
----
+### Exporting and Importing Sessions
+For full portability — including background, speed, style, effects, and all sub-settings — use **Settings ▾ → Export Session Settings…** to save a `.imgplyr` file. Share it, back it up, or load it on another machine using **Settings ▾ → Import Session Settings…**
  
-
+---

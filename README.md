@@ -4,6 +4,7 @@
 Image Slideshow Performance Software
 
 **Version 1.7.2**
+For Windows & MacOS(Beta)
 © 2026 John Zobele | A zobele.co Project
 
 ---

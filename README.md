@@ -3,7 +3,8 @@
 # IMGPLYR
 Image Slideshow Performance Software
 
-**Version 1.7.2**  For Windows & MacOS(Beta)
+**Version 1.8**  For Windows
+**Version 1.7.2**  For MacOS(Beta)
 
 © 2026 John Zobele | A zobele.co Project
 
@@ -11,7 +12,7 @@ Image Slideshow Performance Software
 
 ## What is IMGPLYR?
 
-IMGPLYR is an image slideshow player built for live use. Load a folder of images and play them back automatically on a timer, advance them manually at your own pace, switch between different image sets on the fly, and display them in a variety of visual styles — all without stopping the show.
+IMGPLYR is an image slideshow player built for live use. Load a folder of images and play them back automatically on a timer, advance them manually at your own pace, switch between different image sets on the fly, and display them in a variety of visual styles — all without stopping the show. Create rhythm-based performances with the Perform Mode pattern sequencer, sync to music or metronomes, and layer effects, transitions, and multi-image layouts in real-time.
 
 ---
 
@@ -40,9 +41,9 @@ The images will begin cycling automatically. Every image in the folder is shown 
 
 All controls live in the bar at the top of the window. From left to right:
 
-**Load ▾** · **Start/Pause** · **BG ▾** · **Speed ▾** · **Scale ▾** · **Motion ▾** · **Styles ▾** · **Effects ▾** · **Trans. ▾** · **Settings ▾**
+**Load ▾** · **Start/Pause** · **Perform** · **BG ▾** · **Speed ▾** · **Scale ▾** · **Motion ▾** · **Styles ▾** · **Effects ▾** · **Trans. ▾** · **Settings ▾**
 
-The **status bar** on the right shows live information — which image you are on, which bank or folder is active, speed confirmations, and other feedback.
+The **status bar** on the right shows live information — which image you are on, which bank or folder is active, speed confirmations, perform mode status, and other feedback.
 
 > **Note:** Button labels are abbreviated to keep the control bar compact on smaller screens. "BG ▾" is the Background menu and "Trans. ▾" is the Transitions menu.
 
@@ -124,6 +125,56 @@ Press **0** to hide whatever is on screen without pausing the timer. The queue c
 
 ---
 
+## Perform Mode — Pattern Sequencer
+
+**Perform Mode** is a pattern-based image advancement system designed for synchronized, rhythm-driven presentations. Set up a repeating pattern of up to 32 bars, assign each bar an action (hold image, advance to next, or blank screen), and play back in time with music or at your own pace.
+
+### Opening Perform Mode
+
+Click the **Perform** button in the control bar, or assign a keyboard shortcut via **Settings ▾ → Edit Keybindings…**
+
+### The Perform Dialog
+
+The dialog shows:
+
+- **Perform Mode ON/OFF** — Button to enable or disable the pattern sequencer.
+- **BPM / IPM Entry** — Set playback speed in images per minute (10–300). Syncs with the main slideshow speed.
+- **Tap to Record Speed** — Opens the record speed dialog to tempo-in your pace via tapping.
+- **Pattern Size** — Choose 4, 8, 16, or 32 bars. Your bar configuration is preserved when you change size.
+- **Bar Action Grid** — Four buttons per bar: 
+  - **◆ (Hold)** — Do nothing; keep the current image on screen.
+  - **▶ (Advance)** — Show the next image in the queue.
+  - **█ (Blank)** — Clear the display (all styles, except XP Trails whipes entire screen).
+- **Restart from start when unpaused** — Checkbox. When paused and resumed, restart the pattern from bar 1 (checked) or continue from the pause point (unchecked).
+
+### How Perform Mode Works
+
+1. Enable **Perform Mode** in the dialog.
+2. Set your **BPM/IPM** (images per minute). The pattern advances at this tempo.
+3. Configure each bar — each bar triggers on the beat. Advance bars show the next image; Blank bars clear the screen; Hold bars do nothing.
+4. Click **Start** to begin playback.
+5. The pattern repeats indefinitely until you disable Perform Mode or change the configuration.
+
+**Keyboard control:**
+- **Space** — Pause or resume the pattern (just like normal slideshow pause).
+- **Shift** — If paused, restart the pattern from bar 1 on the next resume.
+
+### Perform Mode with Display Styles
+
+Perform Mode works with all display styles:
+
+- **Centered, Crop, Stretch** — Advance bars show new images; Blank bars hide them.
+- **Kuleshov & Two Images Classic** — Advance bars update both panes; Blank bars hide both.
+- **Collage Mode** — Advance bars add new tiles; Blank bars clear the entire canvas.
+- **Screensaver Mode** — Advance bars bounce new images; Blank bars pause animation and hide the ball; resuming repositions at a new random location.
+- **XP Trails Mode** — Advance bars bounce new images and leave trails; Blank bars pause animation and hide the cursor (trails remain visible); resuming repositions at a new random location.
+
+### Recording Speed in Perform Mode
+
+Use **Tap to Record Speed** within the Perform dialog to set the pattern tempo by tapping in rhythm with your music. The recorded speed updates the BPM/IPM value and syncs the main slideshow speed as well.
+
+---
+
 ## Switching Banks Live
 
 Once you have loaded banks using **Load ▾ → Load Bank 1–8**, press **F1 through F8** at any time to switch the active image pool to that bank. The current image stays on screen — the new bank takes effect on the next advance.
@@ -183,6 +234,8 @@ The most accurate way to set speed. Opens a small floating window.
 3. Click **Apply** to set the average interval between your taps as the new speed.
 
 The window shows a running count of taps and the current average in images per minute and seconds per image. Click **Cancel** to discard without changing speed.
+
+This recorded speed also updates the **Perform Mode** BPM/IPM if you have the dialog open.
 
 ### Tempo Override (Up / Down Arrow Keys)
 While the slideshow is playing, hold or press **Up Arrow** to run at **2× speed** and **Down Arrow** to run at **0.5× speed**. The Speed menu lets you choose between two activation modes:
@@ -303,6 +356,9 @@ Adds a soft glow along the inside edges of the image. Options:
 ### Black & White
 Converts the image to greyscale.
 
+### Invert
+Inverts the colours of the image — light becomes dark, dark becomes light. No additional settings.
+
 ### Gradient Map
 Remaps the image's luminance through a custom colour gradient, replacing tones with colour. Click **Edit Gradient Map Colours…** to open the gradient map editor and set the colour stops.
 
@@ -334,6 +390,9 @@ A variation of Fade Out. When enabled, pressing advance fades the current image 
 This is useful for deliberate pauses between images during a live performance.
 
 **Fade Out Settings…** — controls the duration for both Fade Out and Fade to Black. Opens the same settings panel with a 50–2000 ms slider and quick presets. Default is 400 ms.
+
+### Fade to Next
+When enabled, the current image fades to the next image in the queue continuously during playback — rather than showing one image, then fading, then showing another. The fade cycle repeats at the current playback speed, creating a smooth continuous cross-fade effect.
 
 ---
 
@@ -402,13 +461,14 @@ Saves all current settings to a `.imgplyr` file that you choose. The file captur
 - All Effects and their sub-settings (shadow, glow, gradient map, threshold, dither)
 - Transitions and their durations
 - Animated GIFs mode and GIF filter
+- Perform Mode settings: BPM/IPM, pattern size, all bar modes, and restart preference
 - Screenshot folder
 - All custom keybindings
 
 The file is plain JSON and can be opened in any text editor.
 
 ### Import Session Settings…
-Loads a `.imgplyr` file and applies all settings to the current session. Local folders and the overlay image are re-validated for existence, Are.na channels are re-fetched live, and anything not found is listed in a summary dialog. Keybindings are applied immediately and saved. All menus and checkbuttons update to reflect the restored state.
+Loads a `.imgplyr` file and applies all settings to the current session. Local folders and the overlay image are re-validated for existence, Are.na channels are re-fetched live, and anything not found is listed in a summary dialog. Keybindings are applied immediately and saved. All menus and checkbuttons update to reflect the restored state. Perform Mode settings are restored and the pattern is ready to use.
 
 ### Open Current Image in Folder
 Opens the folder containing the currently displayed image in your system file browser, with the image selected where supported.
@@ -417,7 +477,7 @@ Opens the folder containing the currently displayed image in your system file br
 Opens a folder browser to choose where P-key screenshots are saved. Default is **Pictures/IMGPLYR Screenshots**.
 
 ### Help / Shortcuts
-Opens a quick reference inside the app.
+Opens a quick reference inside the app with full documentation of all features and keyboard shortcuts.
 
 ---
 
@@ -425,7 +485,7 @@ Opens a quick reference inside the app.
 
 **Settings ▾ → Pop Out Controls** moves the control bar into a floating window that can be positioned anywhere — including a second monitor while the main window is fullscreen.
 
-**Top row:** Load ▾ · Start/Pause · BG ▾ · Speed ▾ · Scale ▾ · Motion ▾ · Styles ▾ · Effects ▾ · Trans. ▾ · Settings ▾
+**Top row:** Load ▾ · Start/Pause · Perform · BG ▾ · Speed ▾ · Scale ▾ · Motion ▾ · Styles ▾ · Effects ▾ · Trans. ▾ · Settings ▾
 
 **Bottom row:** ◄ Back · Next ► · ↩ Main · one button per loaded bank (F1, F2, etc.)
 
@@ -435,7 +495,7 @@ All keyboard shortcuts work when the pop-out window has focus. To close the pop-
 
 ## Customising Keyboard Shortcuts
 
-**Settings ▾ → Edit Keybindings…** opens a scrollable table of every action and its current shortcut, divided into three sections: standard actions, effect toggles, and transition toggles.
+**Settings ▾ → Edit Keybindings…** opens a scrollable table of every action and its current shortcut, divided into four sections: standard actions, effect toggles, transition toggles, and perform mode shortcuts.
 
 1. Click the text box next to the action you want to rebind. It turns **yellow**.
 2. Press the key you want to use. The box turns **green**.
@@ -446,10 +506,13 @@ All keyboard shortcuts work when the pop-out window has focus. To close the pop-
 **Revert to Defaults** resets every shortcut in the editor (you still need to click **Save**). **Cancel** discards all changes. Your shortcuts are saved and restored automatically on every launch — and are included when you export session settings.
 
 ### Effect Toggle Bindings
-The second section lists one entry for each effect — Drop Shadow, Inner Glow, Black & White, Gradient Map, Threshold, and Dither. These are all **unset by default**. Assign any key you like; pressing it will toggle that effect on or off exactly as if you had clicked the checkbutton in the Effects menu.
+The second section lists one entry for each effect — Drop Shadow, Inner Glow, Black & White, Invert, Gradient Map, Threshold, and Dither. These are all **unset by default**. Assign any key you like; pressing it will toggle that effect on or off exactly as if you had clicked the checkbutton in the Effects menu.
 
 ### Transition Toggle Bindings
-The third section lists entries for **Fade In** and **Fade Out**. These are also **unset by default**. Assigning a key lets you toggle each fade on or off live during a performance without opening the menu.
+The third section lists entries for **Fade In**, **Fade Out**, **Fade to Black**, and **Fade to Next**. These are all **unset by default**. Assigning a key lets you toggle each transition on or off live during a performance without opening the menu.
+
+### Perform Mode Bindings
+The fourth section lists entries for **Perform: Open Dialog** and **Perform: Toggle Mode On/Off**. These are **unset by default**. Assign keys to quickly access the perform mode dialog or toggle the pattern sequencer on and off during live performance.
 
 ---
 
@@ -460,7 +523,8 @@ The third section lists entries for **Fade In** and **Fade Out**. These are also
 | **Enter** | Advance to the next image |
 | **Right Arrow** | Advance to the next image |
 | **Left Arrow** | Go back to the previous image |
-| **Space** | Pause / Resume |
+| **Space** | Pause / Resume (or Pause/Resume Perform Mode) |
+| **Shift** | Restart Perform Mode from bar 1 (when paused) |
 | **Backspace** | Return to Main folder |
 | **0** | Blank / un-blank the display |
 | **~ (backtick)** | Toggle Overlay Image on / off |
@@ -485,11 +549,16 @@ The third section lists entries for **Fade In** and **Fade Out**. These are also
 | *(unset)* | Effect: Toggle Drop Shadow |
 | *(unset)* | Effect: Toggle Inner Glow |
 | *(unset)* | Effect: Toggle Black & White |
+| *(unset)* | Effect: Toggle Invert |
 | *(unset)* | Effect: Toggle Gradient Map |
 | *(unset)* | Effect: Toggle Threshold |
 | *(unset)* | Effect: Toggle Dither |
 | *(unset)* | Transition: Toggle Fade In |
 | *(unset)* | Transition: Toggle Fade Out |
+| *(unset)* | Transition: Toggle Fade to Black |
+| *(unset)* | Transition: Toggle Fade to Next |
+| *(unset)* | Perform: Open Dialog |
+| *(unset)* | Perform: Toggle Mode On/Off |
 
 > Style shortcuts **F**, **G**, **H**, **J**, and **K** are automatically disabled when a gradient or image background is active, when any Effect is enabled, when any Transition is enabled, or when Animated GIFs mode is on. The ~ key has no effect if no overlay image is loaded. All shortcuts except ~ are the defaults and can be changed via **Settings ▾ → Edit Keybindings…**
 
@@ -506,6 +575,8 @@ IMGPLYR remembers the following automatically between sessions:
 If a remembered folder or overlay image has been moved, renamed, or is on a disconnected drive, IMGPLYR skips it and tells you which ones it could not find.
 
 ### Exporting and Importing Sessions
-For full portability — including background, speed, style, effects, transitions, animated GIF mode, GIF filters, overlay image, overlay scale, keybindings, and all sub-settings — use **Settings ▾ → Export Session Settings…** to save a `.imgplyr` file. Share it, back it up, or load it on another machine using **Settings ▾ → Import Session Settings…**
+For full portability — including background, speed, style, effects, transitions, animated GIF mode, GIF filters, overlay image, overlay scale, perform mode pattern settings, keybindings, and all sub-settings — use **Settings ▾ → Export Session Settings…** to save a `.imgplyr` file. Share it, back it up, or load it on another machine using **Settings ▾ → Import Session Settings…**
+
+When you import a session, all perform mode settings are restored: the pattern size, BPM/IPM, all bar modes (hold/advance/blank), and the restart preference. The pattern is ready to activate immediately with **Perform Mode ON**.
 
 ---
